@@ -19,9 +19,7 @@ export default {
     <Chip text-chip="On Hold" />
   </div>
 
-  <div
-    class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3"
-  >
-    <CardTask />
+  <div class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
+    <CardTask title="Tarea 1" status="To Do" level="Low" created="4 days ago" :progress="20" />
   </div>
 </template>
