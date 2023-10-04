@@ -5,9 +5,6 @@ import BadgeTime from "@/components/ui/BadgeTime.vue";
 import BadgeProgress from "@/components/ui/BadgeProgress.vue";
 import ButtonChangeStatus from "@/components/inputs/ButtonChangeStatus.vue";
 
-
-{/* <CardTask title="Tarea 1" status="To Do" level="Low" created="4 days ago" progress="20%" /> */ }
-
 export default {
   name: "CardTask",
   props: {
@@ -24,7 +21,6 @@ export default {
     BadgeProgress,
     ButtonChangeStatus,
   },
-
 };
 </script>
 <template>

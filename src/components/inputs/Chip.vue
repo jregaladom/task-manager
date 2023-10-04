@@ -1,11 +1,12 @@
 <script>
-import useTasks from "@/stores/tasks";
+// import useTasks from "@/stores/tasks";
+import { useTasksStore } from "@/stores/tasks";
 import { computed } from "vue";
 
 export default {
   name: "Chip",
   setup(props) {
-    const tasks = useTasks();
+    const tasks = useTasksStore();
     const isSelected = computed(() => tasks.statusTask === props.textChip);
     const handleStatusTasksClick = (status) => {
       tasks.setTasksStatus(status);
@@ -55,12 +56,18 @@ export default {
 };
 </script>
 <template>
-  <div @click="handleClick"
+  <div
+    @click="handleClick"
     class="flex min-w-fit w-auto h-10 justify-center items-center m-1 font-medium py-1 px-2 rounded-full border border-gray-800 cursor-pointer"
-    :class="clasStatusTask">
+    :class="clasStatusTask"
+  >
     <div class="text-xs font-medium flex-initial">
       {{ textChip }}
-      <span class="text-black text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full" :class="colorBedge">0</span>
+      <span
+        class="text-black text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full"
+        :class="colorBedge"
+        >0</span
+      >
     </div>
   </div>
 </template>

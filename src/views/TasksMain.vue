@@ -1,12 +1,36 @@
 <script>
 import Chip from "@/components/inputs/Chip.vue";
 import CardTask from "@/components/ui/CardTask.vue";
+import { useTasksStore } from "@/stores/tasks";
+import { formatDateToHumanReadable } from "../utils/dateUtils";
 
 export default {
   name: "TasksMain",
+  setup() {
+    const tasks = useTasksStore();
+
+    const handleAddTasks = () => {
+      tasks.addTask();
+    };
+
+    return {
+      tasks,
+      handleAddTasks,
+    };
+  },
   components: {
     Chip,
     CardTask,
+  },
+  computed: {
+    formatDateToHumanReadable() {
+      return formatDateToHumanReadable;
+    },
+  },
+  methods: {
+    handleAddTasksClick() {
+      this.handleAddTasks();
+    },
   },
 };
 </script>
@@ -19,7 +43,25 @@ export default {
     <Chip text-chip="On Hold" />
   </div>
 
-  <div class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
-    <CardTask title="Tarea 1" status="To Do" level="Low" created="4 days ago" :progress="20" />
+  <div
+    class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3"
+  >
+    <CardTask
+      v-for="(task, index) in tasks.getTasks"
+      :key="index"
+      :title="task.name"
+      :status="task.status"
+      :level="task.level"
+      :created="formatDateToHumanReadable(task.created)"
+      :progress="20"
+    />
+  </div>
+  <div class="fixed bottom-4 right-4">
+    <button
+      @click="handleAddTasksClick"
+      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg"
+    >
+      Add Item
+    </button>
   </div>
 </template>
