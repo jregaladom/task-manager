@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia';
+import { getUUID } from '../utils/uuid';
+
 const STORE_NAME = 'tasks';
 const tasks = localStorage.getItem(STORE_NAME);
+
 export const useTasksStore = defineStore(STORE_NAME, {
     state: () => ({
         statusTask: 'All Tasks',
@@ -14,14 +17,38 @@ export const useTasksStore = defineStore(STORE_NAME, {
                 return dateB - dateA;
             });
         },
+        getTaskById: (state) => (id) => {
+            const task = state.tasks.find((task) => task.id === id);
+            return task;
+
+        },
+        getProgressByTaskId: (state) => (id) => {
+            const task = state.tasks.find((task) => task.id === id);
+            const activitiesDone = task.activities.filter(activity => activity.complete === true);
+
+            const done = activitiesDone.length === undefined ? 1 : activitiesDone.length;
+            const total = task.activities.length === undefined ? 1 : task.activities.length;
+
+            if (total === 0 && done === 0) return 0;
+
+            return Math.round((done / total) * 100);
+        },
     },
     actions: {
         setTasksStatus(status) {
             this.statusTask = status;
         },
+        updateStatusActivity(idTask, idActivity) {
+            const task = this.tasks.find((task) => task.id === idTask);
+            const index = task.activities.findIndex(
+                (act) => act.id === idActivity
+            );
+            task.activities[index].complete = !task.activities[index].complete;
+            localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+        },
         addTask() {
             const task = {
-                id: '04023544-44040TT404',
+                id: getUUID(),
                 name: 'Task new',
                 status: 'In Progress',
                 level: 'Medium',
@@ -29,19 +56,20 @@ export const useTasksStore = defineStore(STORE_NAME, {
                 activities: [
                     {
                         name: 'Activity 1',
-                        status: 'In Progress',
-                        created: '2023-10-03',
+                        complete: false,
+                        created: '2023-10-04',
                     },
                     {
                         name: 'Activity 2',
-                        status: 'In Progress',
-                        created: '2023-10-03',
+                        complete: false,
+                        created: '2023-10-04',
                     },
                     {
                         name: 'Activity 3',
-                        status: 'In Progress',
-                        created: '2021-08-01',
+                        complete: false,
+                        created: '2023-10-04',
                     },
+
                 ],
             };
             this.tasks.push(task);

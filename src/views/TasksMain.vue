@@ -10,13 +10,8 @@ export default {
   setup() {
     const tasks = useTasksStore();
 
-    const handleAddTasks = () => {
-      tasks.addTask();
-    };
-
     return {
       tasks,
-      handleAddTasks,
     };
   },
   components: {
@@ -31,7 +26,10 @@ export default {
   },
   methods: {
     handleAddTasksClick() {
-      this.handleAddTasks();
+      this.tasks.addTask();
+    },
+    progressPercent(id) {
+      return this.tasks.getProgressByTaskId(id);
     },
   },
 };
@@ -44,12 +42,12 @@ export default {
     <Chip text-chip="In Process" />
     <Chip text-chip="On Hold" />
   </div>
-
   <div class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
     <CardTask v-for="(task, index) in tasks.getTasks" :key="index" :title="task.name" :status="task.status"
-      :level="task.level" :created="formatDateToHumanReadable(task.created)" :progress="20" />
+      :level="task.level" :created="formatDateToHumanReadable(task.created)" :progress="progressPercent(task.id)"
+      :id="task.id" />
   </div>
   <div class="fixed bottom-4 right-4">
-    <ButtonAddTask :handleAddTasks="handleAddTasks"></ButtonAddTask>
+    <ButtonAddTask :handleAddTasks="handleAddTasksClick"></ButtonAddTask>
   </div>
 </template>
