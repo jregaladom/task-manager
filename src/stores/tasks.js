@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { getUUID } from '../utils/uuid';
+import { dateNow } from '../utils/dateUtils'
 
 const STORE_NAME = 'tasks';
 const tasks = localStorage.getItem(STORE_NAME);
@@ -38,42 +39,54 @@ export const useTasksStore = defineStore(STORE_NAME, {
         setTasksStatus(status) {
             this.statusTask = status;
         },
-        updateStatusActivity(idTask, idActivity) {
+        updateActivity(idTask, activity) {
             const task = this.tasks.find((task) => task.id === idTask);
             const index = task.activities.findIndex(
-                (act) => act.id === idActivity
+                (act) => act.id === activity.id
             );
-            task.activities[index].complete = !task.activities[index].complete;
+
+            task.activities[index] = activity;
             localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
         },
-        addTask() {
-            const task = {
-                id: getUUID(),
-                name: 'Task new',
-                status: 'In Progress',
-                level: 'Medium',
-                created: '2023-10-04',
-                activities: [
-                    {
-                        name: 'Activity 1',
-                        complete: false,
-                        created: '2023-10-04',
-                    },
-                    {
-                        name: 'Activity 2',
-                        complete: false,
-                        created: '2023-10-04',
-                    },
-                    {
-                        name: 'Activity 3',
-                        complete: false,
-                        created: '2023-10-04',
-                    },
+        addActivity(idTask, activity) {
 
-                ],
-            };
-            this.tasks.push(task);
+
+            const task = this.tasks.find((task) => task.id === idTask);
+            console.log(task);
+            console.log(activity);
+            task.activities.push(activity);
             localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+        },
+        addTask(nameTask, selectedLevel) {
+            const uuid = getUUID();
+
+            return new Promise((resolve, reject) => {
+                // ... lógica de tu acción
+                const task = {
+                    id: uuid,
+                    name: nameTask,
+                    status: 'In Progress',
+                    level: selectedLevel,
+                    created: dateNow(),
+                    activities: [
+                        {
+                            id: `act_${getUUID()}`,
+                            name: 'Fisrt activity of the task',
+                            complete: false,
+                        },
+                    ],
+                };
+                this.tasks.push(task);
+                localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+                //return uuid;
+                // Si la acción es exitosa, resuelve con el resultado deseado
+                resolve(uuid);
+
+                // Si hay un error, rechaza con el error
+                reject(error);
+            });
+
+
         }
 
     },

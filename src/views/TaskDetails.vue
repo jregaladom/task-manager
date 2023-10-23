@@ -22,13 +22,13 @@ export default {
     data() {
         return {
             id: null,
+            task: useTasksStore().getTaskById(this.$route.params.id)
         };
     },
     computed: {
-        task() {
-            console.log(useTasksStore().getTaskById(this.$route.params.id));
-            return useTasksStore().getTaskById(this.$route.params.id);
-        },
+        // task() {
+        //     return useTasksStore().getTaskById(this.$route.params.id);
+        // },
     },
 };
 
@@ -54,8 +54,9 @@ export default {
                 </div>
             </div>
         </div>
-        <div id="tasks" class="my-5">
+        <div id="tasks">
             <ActivityItem :activity="activity" v-for="(activity, index) in task.activities" :key="index" :idTask="id" />
+            <ActivityItem :idTask="''" />
         </div>
         <p class="text-xs text-slate-500 text-center">Last updated 12 minutes ago</p>
     </div>

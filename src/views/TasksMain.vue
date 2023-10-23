@@ -36,9 +36,7 @@ export default {
   },
   methods: {
     handleAddTasksClick() {
-      //this.tasks.addTask();
       this.modal.toggle();
-      console.log(this.modal.isOpen);
     },
     progressPercent(id) {
       return this.tasks.getProgressByTaskId(id);
