@@ -6,6 +6,7 @@ import BadgeTime from "@/components/ui/BadgeTime.vue";
 import BadgeProgress from "@/components/ui/BadgeProgress.vue";
 import ButtonStatusTask from "@/components/inputs/ButtonStatusTask.vue";
 import ActivityItem from "../components/ui/ActivityItem.vue";
+import ReturnButton from "@/components/inputs/ButtonReturn.vue";
 export default {
   name: "TaskDetails",
   components: {
@@ -15,6 +16,7 @@ export default {
     BadgeProgress,
     ButtonStatusTask,
     ActivityItem,
+    ReturnButton
   },
   mounted() {
     this.id = this.$route.params.id;
@@ -37,6 +39,9 @@ export default {
 </script>
 <template>
   <div class="w-full bg-white p-8 rounded-xl shadow shadow-slate-300 h-screen">
+    <div class="mb-4">
+      <ReturnButton />
+    </div>
     <div class="flex flex-row justify-between items-center">
       <div>
         <h4 class="text-2xl font-bold">{{ task.name }}</h4>
