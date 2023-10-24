@@ -3,7 +3,7 @@ import BadgeLevel from "@/components/ui/BadgeLevel.vue";
 import BadgeStatus from "@/components/ui/BadgeStatus.vue";
 import BadgeTime from "@/components/ui/BadgeTime.vue";
 import BadgeProgress from "@/components/ui/BadgeProgress.vue";
-import ButtonChangeStatus from "@/components/inputs/ButtonChangeStatus.vue";
+import ButtonStatusTask from "@/components/inputs/ButtonStatusTask.vue";
 
 export default {
   name: "CardTask",
@@ -25,16 +25,16 @@ export default {
     BadgeStatus,
     BadgeTime,
     BadgeProgress,
-    ButtonChangeStatus,
+    ButtonStatusTask,
   },
   methods: {
     startPress() {
+      console.log("startPress");
       this.isPressed = true;
-
       setTimeout(() => {
         this.endPress(); // Finaliza la animación
         this.navigateToTask(); // Navega a la ruta deseada
-      }, 500); // 500 milisegundos como ejemplo de duración de la animación
+      }, 200); // 500 milisegundos como ejemplo de duración de la animación
     },
     endPress() {
       this.isPressed = false;
@@ -46,9 +46,8 @@ export default {
 };
 </script>
 <template>
-  <div
-    class="w-full m-2 p-4 bg-white border rounded-3xl border-black hover:shadow-lg cursor-pointer transition-transform pressable-div"
-    @mousedown="startPress" @mouseup="endPress" @mouseleave="endPress">
+  <div class="w-full m-2 p-4 bg-white border rounded-3xl border-black hover:shadow-lg cursor-pointer transition-transform"
+    :class="{ 'pressable-div': isPressed }" @click="startPress">
     <h4 class="text-2xl font-bold">{{ title }}</h4>
     <BadgeStatus :status="status" />
     <BadgeLevel :level="level" />
@@ -57,14 +56,14 @@ export default {
       <div class="flex justify-end">
         <BadgeProgress :progress="progress" />
         <div>
-          <ButtonChangeStatus />
+          <ButtonStatusTask :id="id" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.pressable-div:active {
+.pressable-div {
   transform: scale(0.95);
 }
 </style>

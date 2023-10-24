@@ -4,7 +4,7 @@ import BadgeStatus from "@/components/ui/BadgeStatus.vue";
 import BadgeLevel from "@/components/ui/BadgeLevel.vue";
 import BadgeTime from "@/components/ui/BadgeTime.vue";
 import BadgeProgress from "@/components/ui/BadgeProgress.vue";
-import ButtonChangeStatus from "@/components/inputs/ButtonChangeStatus.vue";
+import ButtonStatusTask from "@/components/inputs/ButtonStatusTask.vue";
 import ActivityItem from "../components/ui/ActivityItem.vue";
 export default {
   name: "TaskDetails",
@@ -13,7 +13,7 @@ export default {
     BadgeTime,
     BadgeLevel,
     BadgeProgress,
-    ButtonChangeStatus,
+    ButtonStatusTask,
     ActivityItem,
   },
   mounted() {
@@ -22,13 +22,16 @@ export default {
   data() {
     return {
       id: null,
-      task: useTasksStore().getTaskById(this.$route.params.id),
+      task: useTasksStore().getTaskById(this.$route.params.id)
     };
   },
   computed: {
-    // task() {
-    //     return useTasksStore().getTaskById(this.$route.params.id);
-    // },
+    sortedActivities() {
+      return this.task.activities.slice().sort((a, b) => a.index - b.index);
+    },
+    progress() {
+      return useTasksStore().getProgressByTaskId(this.$route.params.id);
+    },
   },
 };
 </script>
@@ -46,19 +49,15 @@ export default {
     <div class="grid grid-cols-2 gap-2 pt-3">
       <BadgeTime :created="task.created" />
       <div class="flex justify-end">
-        <BadgeProgress :progress="task.progress" />
+        <BadgeProgress :progress="progress" />
         <div>
-          <ButtonChangeStatus />
+          <ButtonStatusTask :id="task.id" />
+          <ButtonStatusTask :id="task.id" typeStatus="Hold" />
         </div>
       </div>
     </div>
     <div id="tasks">
-      <ActivityItem
-        :activity="activity"
-        v-for="(activity, index) in task.activities"
-        :key="index"
-        :idTask="id"
-      />
+      <ActivityItem :activity="activity" v-for="activity in sortedActivities" :key="activity.index" :idTask="id" />
     </div>
     <p class="text-xs text-slate-500 text-center">
       Last updated 12 minutes ago

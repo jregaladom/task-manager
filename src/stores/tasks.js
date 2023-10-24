@@ -20,11 +20,6 @@ export const useTasksStore = defineStore(STORE_NAME, {
         },
         getTaskById: (state) => (id) => {
             const task = state.tasks.find((task) => task.id === id);
-            //Order activities from task by index property asc
-            task.activities.sort((a, b) => {
-                return a.index - b.index;
-            });
-            console.log(task);
             return task;
 
         },
@@ -33,7 +28,7 @@ export const useTasksStore = defineStore(STORE_NAME, {
             const activitiesDone = task.activities.filter(activity => activity.complete === true);
 
             const done = activitiesDone.length === undefined ? 1 : activitiesDone.length;
-            const total = task.activities.length === undefined ? 1 : task.activities.length;
+            const total = task.activities.length === undefined ? 1 : (task.activities.length - 1);
 
             if (total === 0 && done === 0) return 0;
 
@@ -43,6 +38,25 @@ export const useTasksStore = defineStore(STORE_NAME, {
     actions: {
         setTasksStatus(status) {
             this.statusTask = status;
+        },
+        completeTask(idTask) {
+            const task = this.tasks.find((task) => task.id === idTask);
+            task.status = 'Complete';
+            task.activities.map(activity => {
+                if (activity.id !== '') {
+                    activity.complete = true;
+                }
+            });
+            localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+        },
+        restartTask(idTask) {
+            const task = this.tasks.find((task) => task.id === idTask);
+            task.status = 'To Do';
+            task.activities.map(activity =>
+                activity.complete = false
+            );
+            console.log(task)
+            localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
         },
         updateActivity(idTask, activity) {
             const task = this.tasks.find((task) => task.id === idTask);
@@ -71,7 +85,7 @@ export const useTasksStore = defineStore(STORE_NAME, {
                 const task = {
                     id: uuid,
                     name: nameTask,
-                    status: 'In Progress',
+                    status: 'To Do',
                     level: selectedLevel,
                     created: dateNow(),
                     activities: [
