@@ -57,7 +57,7 @@ export default {
       </div>
     </div>
     <div id="tasks">
-      <ActivityItem :activity="activity" v-for="activity in sortedActivities" :key="activity.index" :idTask="id" />
+      <ActivityItem :activity="activity" v-for="activity in sortedActivities" :key="activity.index" :idTask="task.id" />
     </div>
     <p class="text-xs text-slate-500 text-center">
       Last updated 12 minutes ago

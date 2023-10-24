@@ -58,6 +58,15 @@ export const useTasksStore = defineStore(STORE_NAME, {
             console.log(task)
             localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
         },
+        holdTask(idTask) {
+            const task = this.tasks.find((task) => task.id === idTask);
+            if (task.status !== 'Hold') {
+                task.status = 'Hold';
+            } else {
+                this.restartTask(idTask);
+            }
+            localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+        },
         updateActivity(idTask, activity) {
             const task = this.tasks.find((task) => task.id === idTask);
             const index = task.activities.findIndex(

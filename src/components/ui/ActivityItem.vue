@@ -7,6 +7,7 @@ export default {
     return {
       editable: false,
       tasks: useTasksStore(),
+      task: useTasksStore().getTaskById(this.idTask)
     };
   },
   props: {
@@ -24,14 +25,19 @@ export default {
     complete() {
       return this.activity.complete;
     },
+    statusTask() {
+      return this.task.status;
+    },
   },
   methods: {
     changeStatusActivity() {
-      this.activity.complete = !this.activity.complete;
-      this.tasks.updateActivity(this.idTask, this.activity);
+      if (this.task.status !== 'Hold') {
+        this.activity.complete = !this.activity.complete;
+        this.tasks.updateActivity(this.idTask, this.activity);
+      }
     },
     enableEditable() {
-      if (!this.activity?.complete) {
+      if (!this.activity?.complete && this.task.status !== 'Hold') {
         this.editable = true;
         this.$nextTick(() => {
           this.$refs.taskActivityInput.focus();
@@ -39,8 +45,7 @@ export default {
       }
     },
     enableEditableRow() {
-
-      if (this.activity.name === '') {
+      if (this.activity.name === '' && this.task.status !== 'Hold') {
         this.enableEditable()
       }
     },
@@ -71,7 +76,8 @@ export default {
     <div class="inline-flex items-center space-x-2" @click="enableEditableRow">
       <div class="w-auto">
         <svg v-if="!complete" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-          stroke="currentColor" class="w-6 h-6 text-green-500" @click="changeStatusActivity">
+          stroke="currentColor" class="w-6 h-6 " @click="changeStatusActivity"
+          :class="statusTask == 'Hold' ? 'text-gray-500' : 'text-green-500'">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
@@ -82,7 +88,8 @@ export default {
         </svg>
       </div>
       <div :class="!complete ? '' : 'text-slate-500 line-through'" class="w-[90vw]">
-        <div @click="enableEditable" v-if="!editable" class="w-full">
+        <div @click="enableEditable" v-if="!editable" class="w-full"
+          :class="statusTask === 'Hold' ? 'text-gray-500' : ''">
           {{ activity.name }}
         </div>
         <input ref="taskActivityInput" type="text" :value="activity.name" v-if="editable"
