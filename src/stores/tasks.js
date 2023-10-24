@@ -20,6 +20,11 @@ export const useTasksStore = defineStore(STORE_NAME, {
         },
         getTaskById: (state) => (id) => {
             const task = state.tasks.find((task) => task.id === id);
+            //Order activities from task by index property asc
+            task.activities.sort((a, b) => {
+                return a.index - b.index;
+            });
+            console.log(task);
             return task;
 
         },
@@ -44,16 +49,17 @@ export const useTasksStore = defineStore(STORE_NAME, {
             const index = task.activities.findIndex(
                 (act) => act.id === activity.id
             );
-
             task.activities[index] = activity;
             localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
         },
-        addActivity(idTask, activity) {
-
-
+        addActivity(idTask, nameActivity) {
             const task = this.tasks.find((task) => task.id === idTask);
-            console.log(task);
-            console.log(activity);
+            const activity = {
+                id: `act_${getUUID()}`,
+                name: nameActivity,
+                complete: false,
+                index: task.activities.length - 1,
+            };
             task.activities.push(activity);
             localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
         },
@@ -71,9 +77,16 @@ export const useTasksStore = defineStore(STORE_NAME, {
                     activities: [
                         {
                             id: `act_${getUUID()}`,
-                            name: 'Fisrt activity of the task',
+                            name: 'First activity of the task',
                             complete: false,
+                            index: 0,
                         },
+                        {
+                            id: ``,
+                            name: '',
+                            complete: false,
+                            index: 9999999999,
+                        }
                     ],
                 };
                 this.tasks.push(task);
