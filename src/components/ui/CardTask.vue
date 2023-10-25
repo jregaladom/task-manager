@@ -3,7 +3,8 @@ import BadgeLevel from "@/components/ui/BadgeLevel.vue";
 import BadgeStatus from "@/components/ui/BadgeStatus.vue";
 import BadgeTime from "@/components/ui/BadgeTime.vue";
 import BadgeProgress from "@/components/ui/BadgeProgress.vue";
-import ButtonStatusTask from "@/components/inputs/ButtonStatusTask.vue";
+import ButtonStatusTask from "@/components/buttons/ButtonStatusTask.vue";
+import ButtonOptions from "@/components/buttons/ButtonOptions.vue";
 
 export default {
   name: "CardTask",
@@ -26,6 +27,7 @@ export default {
     BadgeTime,
     BadgeProgress,
     ButtonStatusTask,
+    ButtonOptions
   },
   methods: {
     startPress() {
@@ -48,7 +50,12 @@ export default {
 <template>
   <div class="w-full m-2 p-4 bg-white border rounded-3xl border-black hover:shadow-lg cursor-pointer transition-transform"
     :class="{ 'pressable-div': isPressed }" @click="startPress">
-    <h4 class="text-2xl font-bold">{{ title }}</h4>
+
+    <div class="flex justify-between">
+      <h4 class="text-2xl font-bold">{{ title }}</h4>
+      <ButtonOptions />
+    </div>
+
     <BadgeStatus :status="status" />
     <BadgeLevel :level="level" />
     <div class="grid grid-cols-2 gap-2">

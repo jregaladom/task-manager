@@ -4,9 +4,9 @@ import BadgeStatus from "@/components/ui/BadgeStatus.vue";
 import BadgeLevel from "@/components/ui/BadgeLevel.vue";
 import BadgeTime from "@/components/ui/BadgeTime.vue";
 import BadgeProgress from "@/components/ui/BadgeProgress.vue";
-import ButtonStatusTask from "@/components/inputs/ButtonStatusTask.vue";
+import ButtonStatusTask from "@/components/buttons/ButtonStatusTask.vue";
 import ActivityItem from "../components/ui/ActivityItem.vue";
-import ReturnButton from "@/components/inputs/ButtonReturn.vue";
+import ReturnButton from "@/components/buttons/ButtonReturn.vue";
 export default {
   name: "TaskDetails",
   components: {
