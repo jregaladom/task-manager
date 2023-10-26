@@ -22,20 +22,19 @@ export const useTasksStore = defineStore(STORE_NAME, {
             const task = state.tasks.find((task) => task.id === id);
             return task;
 
-        },
-        getProgressByTaskId: (state) => (id) => {
-            const task = state.tasks.find((task) => task.id === id);
-            const activitiesDone = task.activities.filter(activity => activity.complete === true);
-
-            const done = activitiesDone.length === undefined ? 1 : activitiesDone.length;
-            const total = task.activities.length === undefined ? 1 : (task.activities.length - 1);
-
-            if (total === 0 && done === 0) return 0;
-
-            return Math.round((done / total) * 100);
-        },
+        }
     },
     actions: {
+        updateTask(task) {
+            const index = this.tasks.findIndex((task) => task.id === task.id);
+            this.tasks[index] = task;
+            localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+        },
+        deleteTask(idTask) {
+            const index = this.tasks.findIndex((task) => task.id === idTask);
+            this.tasks.splice(index, 1);
+            localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
+        },
         setTasksStatus(status) {
             this.statusTask = status;
         },

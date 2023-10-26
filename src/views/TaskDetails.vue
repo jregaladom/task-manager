@@ -54,7 +54,7 @@ export default {
     <div class="grid grid-cols-2 gap-2 pt-3">
       <BadgeTime :created="task.created" />
       <div class="flex justify-end">
-        <BadgeProgress :progress="progress" />
+        <BadgeProgress :task="task" />
         <div>
           <ButtonStatusTask :id="task.id" />
           <ButtonStatusTask :id="task.id" typeStatus="Hold" />

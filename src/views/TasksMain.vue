@@ -2,7 +2,7 @@
 import Chip from "@/components/ui/Chip.vue";
 import CardTask from "@/components/ui/CardTask.vue";
 import { useTasksStore } from "@/stores/tasks";
-import { formatDateToHumanReadable } from "../utils/dateUtils";
+
 import ButtonAddTask from "@/components/buttons/ButtonAddTask.vue";
 import Modal from '@/components/ui/Modal.vue';
 import FormNewTask from '@/components/forms/FormNewTask.vue';
@@ -29,17 +29,9 @@ export default {
     Modal,
     FormNewTask
   },
-  computed: {
-    formatDateToHumanReadable() {
-      return formatDateToHumanReadable;
-    },
-  },
   methods: {
     handleAddTasksClick() {
       this.modal.toggle();
-    },
-    progressPercent(id) {
-      return this.tasks.getProgressByTaskId(id);
     },
   },
 };
@@ -54,13 +46,10 @@ export default {
     <Chip text-chip="All Tasks" />
     <Chip text-chip="To Do" />
     <Chip text-chip="Complete" />
-    <Chip text-chip="In Process" />
     <Chip text-chip="On Hold" />
   </div>
   <div class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
-    <CardTask v-for="(task, index) in tasks.getTasks" :key="index" :title="task.name" :status="task.status"
-      :level="task.level" :created="formatDateToHumanReadable(task.created)" :progress="progressPercent(task.id)"
-      :id="task.id" />
+    <CardTask v-for="(task, index) in tasks.getTasks" :key="index" :task="task" />
   </div>
   <div class="fixed bottom-4 right-4">
     <ButtonAddTask :handleAddTasks="handleAddTasksClick"></ButtonAddTask>
