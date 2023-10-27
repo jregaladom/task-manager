@@ -1,25 +1,15 @@
 <script>
 import { useTasksStore } from "@/stores/tasks";
-import { computed } from "vue";
 
 export default {
   name: "Chip",
-  setup(props) {
-    const tasks = useTasksStore();
-    const isSelected = computed(() => tasks.statusTask === props.textChip);
-    const handleStatusTasksClick = (status) => {
-      tasks.setTasksStatus(status);
-    };
-    return {
-      isSelected,
-      handleStatusTasksClick,
-    };
-  },
   props: {
     textChip: String,
   },
   data() {
-    return {};
+    return {
+      tasks: useTasksStore(),
+    };
   },
   computed: {
     colorBedge() {
@@ -32,7 +22,7 @@ export default {
           return "bg-green-100";
         case "In Process":
           return "bg-yellow-100";
-        case "On Hold":
+        case "Hold":
           return "bg-red-100";
         default:
           return "bg-gray-100";
@@ -45,11 +35,17 @@ export default {
         return "text-white bg-gray-800";
       }
     },
+    isSelected() {
+      return this.tasks.statusTask === this.textChip;
+    },
+    countTasks() {
+      return this.tasks.countTasksByStatus(this.textChip);
+    },
   },
   methods: {
     handleClick() {
       this.statusTask = this.textChip;
-      this.handleStatusTasksClick(this.textChip);
+      this.tasks.setTasksStatus(this.textChip);
     },
   },
 };
@@ -60,7 +56,8 @@ export default {
     :class="clasStatusTask">
     <div class="text-xs font-medium flex-initial">
       {{ textChip }}
-      <span class="text-black text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full" :class="colorBedge">0</span>
+      <span class="text-black text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full" :class="colorBedge">{{ countTasks
+      }}</span>
     </div>
   </div>
 </template>

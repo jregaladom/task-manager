@@ -12,7 +12,6 @@ export default {
     methods: {
         closeModal() {
             this.modalStore.toggle();
-            console.log(this.modalStore.isOpen);
         },
     },
     computed: {

@@ -3,7 +3,7 @@ import { useTasksStore } from "@/stores/tasks";
 export default {
     name: "ButtonStatusTask",
     props: {
-        id: String,
+        task: Object,
         typeStatus: {
             type: String,
             default: "default",
@@ -12,18 +12,18 @@ export default {
     data() {
         return {
             tasks: useTasksStore(),
-            task: useTasksStore().getTaskById(this.id),
+            //task: useTasksStore().getTaskById(this.id),
         };
     },
     methods: {
         completeTask() {
-            this.tasks.completeTask(this.id);
+            this.tasks.completeTask(this.task.id);
         },
         restartTask() {
-            this.tasks.restartTask(this.id);
+            this.tasks.restartTask(this.task.id);
         },
         holdTask() {
-            this.tasks.holdTask(this.id);
+            this.tasks.holdTask(this.task.id);
         },
     },
     computed: {

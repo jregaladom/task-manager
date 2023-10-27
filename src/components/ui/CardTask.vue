@@ -41,7 +41,6 @@ export default {
       if (this.isPressed) {
         classDynamic += "pressable-div ";
       }
-      console.log(classDynamic);
       switch (this.task.status) {
         case "To Do":
           return classDynamic += "bg-blue-100 bg-opacity-40";
@@ -97,7 +96,7 @@ export default {
       <div class="flex justify-end">
         <BadgeProgress :task="task" />
         <div>
-          <ButtonStatusTask :id="task.id" />
+          <ButtonStatusTask :task="task" />
         </div>
       </div>
     </div>

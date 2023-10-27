@@ -12,16 +12,25 @@ export const useTasksStore = defineStore(STORE_NAME, {
     }),
     getters: {
         getTasks() {
-            return this.tasks.sort((a, b) => {
+            const taskOrder = this.tasks.sort((a, b) => {
                 const dateA = new Date(a.created);
                 const dateB = new Date(b.created);
                 return dateB - dateA;
             });
+
+            if (this.statusTask !== 'All Tasks') {
+                return taskOrder.filter((task) => task.status === this.statusTask);
+            } else {
+                return taskOrder;
+            }
         },
         getTaskById: (state) => (id) => {
             const task = state.tasks.find((task) => task.id === id);
             return task;
 
+        },
+        countTasksByStatus: (state) => (status) => {
+            return (status === 'All Tasks' ? state.tasks.length : state.tasks.filter((task) => task.status === status).length)
         }
     },
     actions: {
@@ -54,7 +63,6 @@ export const useTasksStore = defineStore(STORE_NAME, {
             task.activities.map(activity =>
                 activity.complete = false
             );
-            console.log(task)
             localStorage.setItem(STORE_NAME, JSON.stringify(this.tasks))
         },
         holdTask(idTask) {

@@ -10,16 +10,15 @@ import { useModalStore } from "../stores/modal";
 export default {
   name: "TasksMain",
   setup() {
-    const tasks = useTasksStore();
     const modal = useModalStore();
     return {
-      tasks,
       modal
     };
   },
   data() {
     return {
-      modalIsOpen: false
+      modalIsOpen: false,
+      tasks: useTasksStore()
     };
   },
   components: {
@@ -46,7 +45,7 @@ export default {
     <Chip text-chip="All Tasks" />
     <Chip text-chip="To Do" />
     <Chip text-chip="Complete" />
-    <Chip text-chip="On Hold" />
+    <Chip text-chip="Hold" />
   </div>
   <div class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
     <CardTask v-for="(task, index) in tasks.getTasks" :key="index" :task="task" />

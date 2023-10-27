@@ -56,8 +56,8 @@ export default {
       <div class="flex justify-end">
         <BadgeProgress :task="task" />
         <div>
-          <ButtonStatusTask :id="task.id" />
-          <ButtonStatusTask :id="task.id" typeStatus="Hold" />
+          <ButtonStatusTask :task="task" />
+          <ButtonStatusTask :task="task" typeStatus="Hold" />
         </div>
       </div>
     </div>

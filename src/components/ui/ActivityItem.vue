@@ -52,13 +52,11 @@ export default {
     focusoutInput() {
       this.editable = false;
       if (this.activity.name.trim() !== "" && this.activity.id !== "") {
-        console.log("update activity");
         this.activity.name = this.$refs.taskActivityInput.value;
         this.tasks.updateActivity(this.idTask, this.activity);
       } else {
         const newName = this.$refs.taskActivityInput.value;
         if (newName !== "") {
-          console.log("add activity");
           this.tasks.addActivity(this.idTask, newName);
         }
       }

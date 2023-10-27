@@ -18,7 +18,6 @@ export default {
             this.isDropdownOpen = !this.isDropdownOpen;
         },
         selectElement(e) {
-            console.log(e);
             this.selectedLevel = e.target.innerText;
             this.toggleDropdown();
         },
