@@ -40,10 +40,8 @@ export default {
 }
 </script>
 <template>
-    <div
-        class="w-full bg-white p-8 rounded-xl shadow shadow-slate-300 h-screen"
-    >
-        <div class="mb-4">
+    <div class="w-full bg-white p-8 rounded-xl shadow shadow-slate-300 h-screen">
+        <div class="mb-4 w-4/12 lg:1/12 xl:1/12 2xl:1/12">
             <ReturnButton />
         </div>
         <div class="flex flex-row justify-between items-center">
@@ -55,7 +53,7 @@ export default {
                 <BadgeLevel :level="task.level" />
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 pt-3">
+        <div class="grid grid-cols-1 gap-1 py-3 md:grid-cols-2 md:gap-2 md:pt-3">
             <BadgeTime :created="task.created" />
             <div class="flex justify-end">
                 <BadgeProgress :task="task" />
@@ -66,12 +64,8 @@ export default {
             </div>
         </div>
         <div id="tasks">
-            <ActivityItem
-                v-for="activity in sortedActivities"
-                :key="activity.index"
-                :activity="activity"
-                :id-task="task.id"
-            />
+            <ActivityItem v-for="activity in sortedActivities" :key="activity.index" :activity="activity"
+                :id-task="task.id" />
         </div>
         <p class="text-xs text-slate-500 text-center">
             Last updated 12 minutes ago
