@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
-const STORE_NAME = 'modal';
+const STORE_NAME = 'modal'
 
 export const useModalStore = defineStore(STORE_NAME, {
     state: () => ({
@@ -8,18 +8,18 @@ export const useModalStore = defineStore(STORE_NAME, {
     }),
     getters: {
         getState() {
-            return this.isOpen;
+            return this.isOpen
         },
     },
     actions: {
         open() {
-            this.isOpen = true;
+            this.isOpen = true
         },
         close() {
-            this.isOpen = false;
+            this.isOpen = false
         },
         toggle() {
-            this.isOpen = !this.isOpen;
-        }
+            this.isOpen = !this.isOpen
+        },
     },
-});
+})

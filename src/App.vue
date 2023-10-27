@@ -3,41 +3,53 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <!-- <header>
+    <!-- <header>
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/about">About</RouterLink>
     </nav>
   </header> -->
-  <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
-    <!-- logo -->
-    <h1 class="w-3/12">
-      <a href="">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-        </svg>
+    <header
+        class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02"
+    >
+        <!-- logo -->
+        <h1 class="w-3/12">
+            <a href="">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                    />
+                </svg>
+            </a>
+        </h1>
 
-      </a>
-    </h1>
-
-    <!-- navigation -->
-    <nav class="nav font-semibold text-lg">
-      <ul class="flex items-center">
-        <li
-          class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
-          <RouterLink to="/">Tasks</RouterLink>
-        </li>
-        <li
-          class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-          <RouterLink to="/dashboard">Dashboard</RouterLink>
-        </li>
-      </ul>
-    </nav>
-    <!-- buttons --->
-    <div class="w-3/12 flex justify-end">
-      <!-- <a href="">
+        <!-- navigation -->
+        <nav class="nav font-semibold text-lg">
+            <ul class="flex items-center">
+                <li
+                    class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active"
+                >
+                    <RouterLink to="/">Tasks</RouterLink>
+                </li>
+                <li
+                    class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer"
+                >
+                    <RouterLink to="/dashboard">Dashboard</RouterLink>
+                </li>
+            </ul>
+        </nav>
+        <!-- buttons --->
+        <div class="w-3/12 flex justify-end">
+            <!-- <a href="">
         <svg class="h-8 p-1 hover:text-green-500 duration-200 svg-inline--fa fa-search fa-w-16 fa-9x" aria-hidden="true"
           focusable="false" data-prefix="far" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512">
@@ -46,10 +58,10 @@ import { RouterLink, RouterView } from 'vue-router'
             class=""></path>
         </svg>
       </a> -->
-    </div>
-  </header>
+        </div>
+    </header>
 
-  <RouterView />
+    <RouterView />
 </template>
 
 <style></style>

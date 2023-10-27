@@ -1,56 +1,62 @@
 <script>
-import Chip from "@/components/ui/Chip.vue";
-import CardTask from "@/components/ui/CardTask.vue";
-import { useTasksStore } from "@/stores/tasks";
+import ChipStatus from '@/components/ui/ChipStatus.vue'
+import CardTask from '@/components/ui/CardTask.vue'
+import { useTasksStore } from '@/stores/tasks'
 
-import ButtonAddTask from "@/components/buttons/ButtonAddTask.vue";
-import Modal from '@/components/ui/Modal.vue';
-import FormNewTask from '@/components/forms/FormNewTask.vue';
-import { useModalStore } from "../stores/modal";
+import ButtonAddTask from '@/components/buttons/ButtonAddTask.vue'
+import ModalForm from '@/components/ui/ModalForm.vue'
+import FormNewTask from '@/components/forms/FormNewTask.vue'
+import { useModalStore } from '../stores/modal'
 export default {
-  name: "TasksMain",
-  setup() {
-    const modal = useModalStore();
-    return {
-      modal
-    };
-  },
-  data() {
-    return {
-      modalIsOpen: false,
-      tasks: useTasksStore()
-    };
-  },
-  components: {
-    Chip,
-    CardTask,
-    ButtonAddTask,
-    Modal,
-    FormNewTask
-  },
-  methods: {
-    handleAddTasksClick() {
-      this.modal.toggle();
+    name: 'TasksMain',
+    components: {
+        ChipStatus,
+        CardTask,
+        ButtonAddTask,
+        ModalForm,
+        FormNewTask,
     },
-  },
-};
+    setup() {
+        const modal = useModalStore()
+        return {
+            modal,
+        }
+    },
+    data() {
+        return {
+            modalIsOpen: false,
+            tasks: useTasksStore(),
+        }
+    },
+    methods: {
+        handleAddTasksClick() {
+            this.modal.toggle()
+        },
+    },
+}
 </script>
 <template>
-  <Modal>
-    <template v-slot:contentModal>
-      <FormNewTask />
-    </template>
-  </Modal>
-  <div class="max-h-screen overflow-y-auto flex space-x-4 p-4 hide-scroll">
-    <Chip text-chip="All Tasks" />
-    <Chip text-chip="To Do" />
-    <Chip text-chip="Complete" />
-    <Chip text-chip="Hold" />
-  </div>
-  <div class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
-    <CardTask v-for="(task, index) in tasks.getTasks" :key="index" :task="task" />
-  </div>
-  <div class="fixed bottom-4 right-4">
-    <ButtonAddTask :handleAddTasks="handleAddTasksClick"></ButtonAddTask>
-  </div>
+    <ModalForm>
+        <template #contentModal>
+            <FormNewTask />
+        </template>
+    </ModalForm>
+    <div class="max-h-screen overflow-y-auto flex space-x-4 p-4 hide-scroll">
+        <ChipStatus text-chip="All Tasks" />
+        <ChipStatus text-chip="To Do" />
+        <ChipStatus text-chip="Complete" />
+        <ChipStatus text-chip="Hold" />
+    </div>
+    <div
+        class="grid grid-cols-1 mr-5 gap-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3"
+    >
+        <CardTask
+            v-for="(task, index) in tasks.getTasks"
+            :key="index"
+            :task="task"
+        />
+    </div>
+    <div class="fixed bottom-4 right-4">
+        <ButtonAddTask :handle-add-tasks="handleAddTasksClick"></ButtonAddTask>
+    </div>
 </template>
